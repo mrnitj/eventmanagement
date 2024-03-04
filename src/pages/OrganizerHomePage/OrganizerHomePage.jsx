@@ -113,7 +113,7 @@ const sx = {
     overflow: "hidden",
   },
   sidebar: {
-    width: "18%",
+    width: "20%",
     height: "auto",
     background: "linear-gradient(7deg, #181921 0%, #242535 47%, #292A3D 100%)",
     boxShadow: "14px 4px 55px 12px rgba(0, 0, 0, 0.25)",
