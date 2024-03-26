@@ -27,18 +27,20 @@ function SignInPage() {
       });
       console.log("Registration successful:", response.data);
 
-      const userEmail = response.data.data;
-     
-      localStorage.setItem("userEmail",userEmail)
-
-      setsigninValues(initialValues);
-      toast.success("Login Successful", {
-        duration: 5000,
+      toast.success("Please check for OTP in your mail", {
+        duration: 3000,
         style: {
           borderRadius: "10px",
           color: "#000",
         },
       });
+
+      const userEmail = response.data.data;
+     
+      localStorage.setItem("userEmail",userEmail)
+
+      setsigninValues(initialValues);
+     
 
       navigate("/login");
     } catch (error) {
