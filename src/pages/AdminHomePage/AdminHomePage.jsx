@@ -1,12 +1,12 @@
 import { useState, React } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { CalendarPlus, CalendarCheck } from "phosphor-react";
-import CreateEvents from "../../components/organizerComponents/createEvents";
-import ShowAllEvents from "../../components/organizerComponents/showAllEvents";
+import CreateVenue from "../../components/adminComponents/createVenue";
+import ShowAllVenue from "../../components/adminComponents/showAllVenue";
 
-function OrganizerHomePage() {
-    const [selectedComponent, setSelectedComponent] = useState("ShowAllEvents");
-    const [selectedBox, setSelectedBox] = useState("ShowAllEvents");
+const AdminHomePage = () => {
+    const [selectedComponent, setSelectedComponent] = useState("ShowAllVenue");
+    const [selectedBox, setSelectedBox] = useState("ShowAllVenue");
 
     const handleClick = (item) => {
         setSelectedComponent(item);
@@ -18,12 +18,12 @@ function OrganizerHomePage() {
 
     const renderComponent = () => {
         switch (selectedComponent) {
-            case "createEvents":
-                return <CreateEvents />;
-            case "ShowAllEvents":
-                return <ShowAllEvents />;
+            case "createVenue":
+                return <CreateVenue />;
+            case "ShowAllVenue":
+                return <ShowAllVenue />;
             default:
-                return <ShowAllEvents />;
+                return <ShowAllVenue />;
         }
     };
 
@@ -37,13 +37,13 @@ function OrganizerHomePage() {
                             <Box
                                 sx={{
                                     ...sx.serviceItems,
-                                    boxShadow: isBoxSelected("createEvents")
+                                    boxShadow: isBoxSelected("createVenue")
                                         ? "4px 4px 16px 4px rgba(1, 1, 1, 0.25)"
                                         : "none",
                                 }}
                                 onClick={() => {
-                                    setSelectedBox("createEvents");
-                                    handleClick("createEvents");
+                                    setSelectedBox("createVenue");
+                                    handleClick("createVenue");
                                 }}
                             >
                                 <CalendarPlus size={20} />
@@ -53,11 +53,11 @@ function OrganizerHomePage() {
                                         ...sx.inputTitle,
                                     }}
                                 >
-                                    Create New Event
+                                    Create New Venue
                                 </Typography>
                             </Box>
 
-                            {selectedBox === "createEvents" && (
+                            {selectedBox === "createVenue" && (
                                 <Box sx={sx.selectedBox}>
                                     <Box sx={sx.innerSelectedBox}></Box>
                                 </Box>
@@ -68,13 +68,13 @@ function OrganizerHomePage() {
                             <Box
                                 sx={{
                                     ...sx.serviceItems,
-                                    boxShadow: isBoxSelected("showAllEvents")
+                                    boxShadow: isBoxSelected("ShowAllVenue")
                                         ? "4px 4px 16px 4px rgba(1, 1, 1, 0.25)"
                                         : "none",
                                 }}
                                 onClick={() => {
-                                    setSelectedBox("showAllEvents");
-                                    handleClick("showAllEvents");
+                                    setSelectedBox("ShowAllVenue");
+                                    handleClick("ShowAllVenue");
                                 }}
                             >
                                 <CalendarCheck size={20} />
@@ -84,7 +84,7 @@ function OrganizerHomePage() {
                                         ...sx.inputTitle,
                                     }}
                                 >
-                                    Events
+                                    Venues
                                 </Typography>
                             </Box>
 
@@ -102,7 +102,7 @@ function OrganizerHomePage() {
             </Box>
         </>
     );
-}
+};
 
 const sx = {
     mainContainer: {
@@ -179,7 +179,8 @@ const sx = {
         height: "100vh",
         width: "100%",
         overflow: "auto",
+        padding:'30px'
     },
 };
 
-export default OrganizerHomePage;
+export default AdminHomePage;
