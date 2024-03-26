@@ -53,7 +53,7 @@ function LoginPage() {
 
                 <div className={styles.inputbox}>
                   <input type="text" 
-                  value={userEmail}
+                  defaultValue={userEmail}
                    required />
                   <label>Username</label>
                 </div>
@@ -65,7 +65,7 @@ function LoginPage() {
                     onChange={(e) => setloginPassword(e.target.value)}
                     required
                   />
-                  <label for="">Password</label>
+                  <label for="">OTP</label>
                 </div>
                 <Box
                   sx={{
