@@ -1,16 +1,19 @@
 import { Box, Card, CardContent, Grid, ListItem, ListItemIcon, ListItemText, styled, List } from "@mui/material";
 import { useState, useEffect } from "react";
 import axios from "../../utils/AxiosInstance";
+
 import FoundationIcon from "@mui/icons-material/Foundation";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
 import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import {useNavigate } from "react-router-dom";
 
 const MainContainer = styled(Box)``;
 const Cards = styled(Card)`
     height: 280px;
     width: 100%;
+    cursor: pointer;
 `;
 const ImageBox = styled(Box)`
     height: 60%;
@@ -53,8 +56,11 @@ const ListItems = styled(ListItem)`
 
 `;
 
-const ShowAllVenue = () => {
+
+const VenueLists = () => {
     const [data, setData] = useState([]);
+
+    const navigate = useNavigate()
 
     const fetchData = async () => {
         try {
@@ -70,7 +76,7 @@ const ShowAllVenue = () => {
     useEffect(() => {
         fetchData();
     }, []);
-
+    console.log(data);
 
     return (
         <MainContainer>
@@ -81,7 +87,7 @@ const ShowAllVenue = () => {
 
 
                 <Grid item xs={12} sm={6} lg={3}>
-                    <Cards>
+                    <Cards onClick={()=>navigate(`/organizer/venue/${venue._id}`)} >
                         <ImageBox>
                             <img src={venue.images[0].url} alt="Venue Image" />
                         </ImageBox>
@@ -133,4 +139,4 @@ const ShowAllVenue = () => {
     );
 };
 
-export default ShowAllVenue;
+export default VenueLists
