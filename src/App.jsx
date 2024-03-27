@@ -4,6 +4,7 @@ import SignInPage from "./pages/SigninPage/Signinpage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import OrganizerHomePage from "./pages/OrganizerHomePage/OrganizerHomePage";
 import AdminHomePage from "./pages/AdminHomePage/AdminHomePage";
+import VenueDetails from "./pages/OrganizerHomePage/venueDetails";
 
 
 
@@ -19,6 +20,7 @@ function App() {
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/organizer" element={<OrganizerHomePage/>} />
         <Route path="/admin" element={< AdminHomePage/>} />
+        <Route path="/organizer/venue/:id" element={<VenueDetails/>}></Route>
       </Routes>
     </div>
   );
