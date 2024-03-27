@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {
   Box,
   TextField,
@@ -63,7 +63,6 @@ function CreateEvents() {
       });
       console.log("Registration successful:", response.data);
 
-      // Submit the form data (e.g., call an API)
       console.log("Submitting form:", formData);
     } catch (error) {
       console.error("Event Registration error:", error);

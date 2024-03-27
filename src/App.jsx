@@ -4,6 +4,7 @@ import SignInPage from "./pages/SigninPage/Signinpage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import OrganizerHomePage from "./pages/OrganizerHomePage/OrganizerHomePage";
 import AdminHomePage from "./pages/AdminHomePage/AdminHomePage";
+import UserHomePage from "./pages/UserHomePage/UserHomePage";
 
 
 
@@ -13,12 +14,13 @@ import AdminHomePage from "./pages/AdminHomePage/AdminHomePage";
 
 function App() {
   return (
-    <div className="app">
+    <div >
       <Routes>
         <Route path="/" element={<SignInPage />} />
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/organizer" element={<OrganizerHomePage/>} />
         <Route path="/admin" element={< AdminHomePage/>} />
+        <Route path="/user" element={< UserHomePage/>} />
       </Routes>
     </div>
   );

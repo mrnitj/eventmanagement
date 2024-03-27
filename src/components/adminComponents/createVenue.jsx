@@ -44,7 +44,7 @@ const CreateVenue = () => {
                 }
               }
 
-            if (!formData.title || !formData.place || !formData.price) {
+            if (!formData.title || !formData.place) {
                 alert("Please fill in all required fields!");
                 return;
             }
