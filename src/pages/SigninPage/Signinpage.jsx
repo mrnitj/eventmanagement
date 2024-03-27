@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import styles from "./signinpage.module.css";
 import axios from "../../utils/AxiosInstance";
 import toast, { Toaster } from "react-hot-toast";
+import Checkbox from '@mui/material/Checkbox';
+import { pink } from '@mui/material/colors';
 
 function SignInPage() {
   const initialValues = [
@@ -15,6 +17,14 @@ function SignInPage() {
   ];
 
   const [signinValues, setsigninValues] = useState(initialValues);
+  const [isChecked, setIsChecked]=useState(false)
+  
+  //functionality for organizer is true or false
+      
+  const handleCheckBoxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,6 +34,7 @@ function SignInPage() {
       const response = await axios.post("/api/commonregister", {
         username: signinValues.userName,
         email: signinValues.email,
+        isOrganizer:isChecked
       });
       console.log("Registration successful:", response.data);
 
@@ -98,11 +109,41 @@ function SignInPage() {
                     required />
                   <label for="">Email</label>
                 </div>
-                <div className={styles.links}>
-                  <a onClick={() => navigate("/login")} href="">
-                    Already a user ?
-                  </a>
-                </div>
+
+             <div style={{display:"flex",justifyContent:"space-around",}}>
+
+             <div >
+
+<label>
+Organizer
+<Checkbox
+checked={isChecked} 
+onChange={handleCheckBoxChange}
+defaultChecked={false} 
+color="primary" 
+// inputProps={{ 'aria-label': 'isOrganizer' }} 
+sx={{
+color: pink[800],
+'&.Mui-checked': {
+color: pink[600],
+},
+}}
+/>
+
+</label>
+</div>
+<div className={styles.links}>
+  <a onClick={() => navigate("/login")} href="">
+    Already a user ?
+  </a>
+</div>
+
+
+
+             </div>
+
+               
+
                 <Box
                   sx={{
                     display: "flex",
@@ -115,6 +156,8 @@ function SignInPage() {
                     },
                   }}
                 >
+
+
                   <Button
                    type="submit"
                     variant="outlined"

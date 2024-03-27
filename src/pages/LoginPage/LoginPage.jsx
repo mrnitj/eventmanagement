@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import Checkbox from '@mui/material/Checkbox';
+import { pink } from '@mui/material/colors';
+
 import styles from "./loginpage.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "../../utils/AxiosInstance";
@@ -11,14 +14,26 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const [loginPassword, setloginPassword] = useState("");
+  const [isChecked, setIsChecked]=useState(false)
+  
 
   const userEmail = localStorage.getItem("userEmail");
+
+  //functionality for organizer is true or false
+      
+  const handleChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await axios.post("/api/commonlogin", {
         password: loginPassword,
+        email:userEmail,
+        isOrganizer:isChecked
+
       });
       toast.success("Login Successful", {
         duration: 5000,
@@ -55,7 +70,7 @@ function LoginPage() {
                   <input type="text" 
                   defaultValue={userEmail}
                    required />
-                  <label>Username</label>
+                  <label>Email</label>
                 </div>
                 <div className={styles.inputbox}>
                   <input
@@ -65,8 +80,28 @@ function LoginPage() {
                     onChange={(e) => setloginPassword(e.target.value)}
                     required
                   />
-                  <label for="">OTP</label>
+                  <label for="">Password</label>
                 </div>
+
+               
+        <label>
+        Organizer
+      <Checkbox
+        checked={isChecked} 
+        onChange={handleChange}
+        defaultChecked={false} 
+        color="primary" 
+        // inputProps={{ 'aria-label': 'isOrganizer' }} 
+        sx={{
+          color: pink[800],
+          '&.Mui-checked': {
+            color: pink[600],
+          },
+        }}
+      />
+      
+    </label>
+        
                 <Box
                   sx={{
                     display: "flex",
