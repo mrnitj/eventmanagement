@@ -6,13 +6,11 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
-    Paper,
-    Typography,
     styled,
     List,
 } from "@mui/material";
-import React from "react";
-
+import { useState, useEffect } from "react";
+import axios from "../../utils/AxiosInstance"
 import FoundationIcon from "@mui/icons-material/Foundation";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
@@ -51,6 +49,32 @@ const ListItems = styled(ListItem)`
 `;
 
 const ShowAllVenue = () => {
+
+    const [data,setData]= useState([])
+    console.log(data)
+
+    const fetchData = async() => {
+        try{
+
+            const response = await axios.get("/api/getallvenues")
+
+            setData(response.data.data)
+
+           
+
+        }catch(err){
+            console.error("venue fetching error:", err);
+            console.log("Response:", err.response);
+        }
+    }
+
+    useEffect(()=>{
+        fetchData()
+      
+    },[])
+
+
+
     return (
         <MainContainer>
             <Grid container spacing={2}>

@@ -20,15 +20,33 @@ function CreateEvents() {
     maximumSeats: 0,
   });
 
+  const [venueData, setVenueData] = useState([]);
+  console.log(venueData);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("/api/getallvenues");
+
+      setVenueData(response.data.data);
+    } catch (err) {
+      console.error("venue fetching error:", err);
+      console.log("Response:", err.response);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
     console.log("main form data", formData);
   };
 
-  const handleSubmit =async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-console.log('first')
+    console.log("first");
     try {
       if (!formData.title || !formData.category || !formData.Ticketprice) {
         alert("Please fill in all required fields!");

@@ -6,12 +6,11 @@ import axios from "../../utils/AxiosInstance";
 const CreateVenue = () => {
     const [formData, setFormData] = useState({
         title: "",
-        category: "",
-        description: "",
-        venue: "",
-        date: "",
-        Ticketprice: 0,
+        place: "",  
+        facilities:[],   
+        price: 0,
         maximumSeats: 0,
+        images:[],
     });
 
     const handleChange = (event) => {
@@ -19,30 +18,48 @@ const CreateVenue = () => {
         setFormData({ ...formData, [name]: value });
         console.log("main form data", formData);
     };
+    
+
+    const handleImageUpload = (event) => {
+        const files = event.target.files;
+        setFormData({
+          ...formData,     
+          images: files,
+        });
+      };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("first");
+        console.log(formData)
         try {
-            if (!formData.title || !formData.category || !formData.Ticketprice) {
+            const formDataToSend = new FormData();
+
+            for (const key in formData) {
+                if (key === "images") {
+                  for (let i = 0; i < formData.images.length; i++) {
+                    formDataToSend.append("images", formData.images[i]);
+                  }
+                } else {
+                  formDataToSend.append(key, formData[key]);
+                }
+              }
+
+            if (!formData.title || !formData.place || !formData.price) {
                 alert("Please fill in all required fields!");
                 return;
             }
-            const response = await axios.post("/api/postevent", {
-                title: formData.title,
-                category: formData.category,
-                description: formData.description,
-                venue: formData.venue,
-                date: formData.date,
-                Ticketprice: formData.Ticketprice,
-                maximumSeats: formData.maximumSeats,
-            });
+            const response = await axios.post("/api/createvenue", 
+                formDataToSend, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data', 
+                    },
+                }
+            );
             console.log("Registration successful:", response.data);
 
-            // Submit the form data (e.g., call an API)
             console.log("Submitting form:", formData);
         } catch (error) {
-            console.error("Event Registration error:", error);
+            console.error("venue Registration error:", error);
             console.log("Response:", error.response);
         }
     };
@@ -54,7 +71,7 @@ const CreateVenue = () => {
                     <h2 style={{ color: "#0c1022" }}>Create New Venue</h2>
                     <TextField
                         label="Name"
-                        name="name"
+                        name="title"
                         value={formData.title}
                         onChange={handleChange}
                         required
@@ -79,9 +96,9 @@ const CreateVenue = () => {
                         sx={sx.inputBox}
                     />
                     <TextField
-                        label="Ticket Price"
-                        name="Ticketprice"
-                        value={formData.Ticketprice}
+                        label="Amount to be paid"
+                        name="price"
+                        value={formData.price}
                         onChange={handleChange}
                         type="number"
                         required
@@ -96,16 +113,14 @@ const CreateVenue = () => {
                         required
                         sx={sx.inputBox}
                     />
-                    <TextField
+                    <input
                         required={true}
-                        sx={sx.inputBox}
                         type="file"
-                        name="image"
-                        accept="image/jpeg, image/webp"
-                        showFileNamesInPreview={true}
-                        maxFileSize={10000000}
-                        onDrop={console.log}
-                        dropzoneText="Add an image here"
+                        name="images"
+                        accept=".png, .jpg, .jpeg"
+                        maxfilesize={10000000}
+                        multiple
+                        onChange={handleImageUpload}
                     />
                     <Button sx={sx.submitButton} type="submit" variant="contained">
                         Submit
@@ -127,7 +142,7 @@ const sx = {
     },
     inputBox: {
         backgroundColor: "white",
-        marginTop: "5%",
+        marginBottom: "5%",
         borderRadius: "10px",
     },
     submitButton: {
