@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import OrganizerHomePage from "./pages/OrganizerHomePage/OrganizerHomePage";
 import AdminHomePage from "./pages/AdminHomePage/AdminHomePage";
 import UserHomePage from "./pages/UserHomePage/UserHomePage";
+import VenueDetails from "./pages/OrganizerHomePage/venueDetails";
 
 
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<LoginPage/>} />
         <Route path="/organizer" element={<OrganizerHomePage/>} />
         <Route path="/admin" element={< AdminHomePage/>} />
+        <Route path="/organizer/venue/:id" element={<VenueDetails/>}></Route>
         <Route path="/user" element={< UserHomePage/>} />
       </Routes>
     </div>

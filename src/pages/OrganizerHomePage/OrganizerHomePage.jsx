@@ -3,6 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { CalendarPlus, CalendarCheck } from "phosphor-react";
 import CreateEvents from "../../components/organizerComponents/createEvents";
 import ShowAllEvents from "../../components/organizerComponents/showAllEvents";
+import VenueLists from "../../components/organizerComponents/venueLists";
 
 function OrganizerHomePage() {
     const [selectedComponent, setSelectedComponent] = useState("ShowAllEvents");
@@ -18,8 +19,8 @@ function OrganizerHomePage() {
 
     const renderComponent = () => {
         switch (selectedComponent) {
-            case "createEvents":
-                return <CreateEvents />;
+            case "venueLists":
+                return <VenueLists />;
             case "ShowAllEvents":
                 return <ShowAllEvents />;
             default:
@@ -37,13 +38,13 @@ function OrganizerHomePage() {
                             <Box
                                 sx={{
                                     ...sx.serviceItems,
-                                    boxShadow: isBoxSelected("createEvents")
+                                    boxShadow: isBoxSelected("venueLists")
                                         ? "4px 4px 16px 4px rgba(1, 1, 1, 0.25)"
                                         : "none",
                                 }}
                                 onClick={() => {
-                                    setSelectedBox("createEvents");
-                                    handleClick("createEvents");
+                                    setSelectedBox("venueLists");
+                                    handleClick("venueLists");
                                 }}
                             >
                                 <CalendarPlus size={20} />
@@ -57,7 +58,7 @@ function OrganizerHomePage() {
                                 </Typography>
                             </Box>
 
-                            {selectedBox === "createEvents" && (
+                            {selectedBox === "venueLists" && (
                                 <Box sx={sx.selectedBox}>
                                     <Box sx={sx.innerSelectedBox}></Box>
                                 </Box>
@@ -179,6 +180,7 @@ const sx = {
         height: "100vh",
         width: "100%",
         overflow: "auto",
+        padding:'30px'
     },
 };
 
