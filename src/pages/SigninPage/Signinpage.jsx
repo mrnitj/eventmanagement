@@ -32,10 +32,12 @@ function SignInPage() {
     try {
   
       const response = await axios.post("/api/commonregister", {
-        username: signinValues.userName,
+        username: signinValues.username,
         email: signinValues.email,
         isOrganizer:isChecked
       });
+
+      
       console.log("Registration successful:", response.data);
 
       toast.success("Please check for OTP in your mail", {
