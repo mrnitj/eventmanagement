@@ -1,15 +1,4 @@
-import {
-    Box,
-    Grid,
-    styled,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Typography,
-    IconButton,
-    Button,
-} from "@mui/material";
+import { Box, Grid, styled, List, ListItem, ListItemIcon, ListItemText, Typography, Button } from "@mui/material";
 import axios from "../../utils/AxiosInstance";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -66,6 +55,7 @@ const ImageLists = styled(Box)`
     width: calc(100% / 6);
     height: 100%;
 `;
+
 // -----
 
 const DetailsContainer = styled(Box)`
@@ -105,10 +95,10 @@ const VenueDetails = () => {
     }, []);
 
     const images = data.length > 0 ? data[0].images : [];
-
     const imageView = (prop) => {
         setImage(images[prop]?.url);
     };
+    const facilities = data[0]?.Facilities.join(",");
 
     return (
         <MainContainer sx={{ padding: { xs: "5px", sm: "15px", lg: "30px" } }}>
@@ -143,37 +133,37 @@ const VenueDetails = () => {
                     </GridItems>
                     <GridItems item xs={12} sm={5}>
                         <DetailsContainer>
-                            <Typography variant="h3">Crown Plaza</Typography>
+                            <Typography variant="h3">{data[0]?.title}</Typography>
                             <Lists>
                                 <ListItems>
                                     <ListItemIcon sx={{ color: "white" }}>
                                         <LocationOnIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary={"Calicut"}></ListItemText>
+                                    <ListItemText primary={data[0]?.place}></ListItemText>
                                 </ListItems>
                                 <ListItems>
                                     <ListItemIcon sx={{ color: "white" }}>
                                         <EventSeatIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary={"200"}></ListItemText>
+                                    <ListItemText primary={data[0]?.maximumSeats}></ListItemText>
                                 </ListItems>
                                 <ListItems>
                                     <ListItemIcon sx={{ color: "white" }}>
                                         <DownloadDoneIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary={"AC, Parking lot ..."}></ListItemText>
+                                    <ListItemText primary={facilities}></ListItemText>
                                 </ListItems>
                                 <ListItems>
                                     <ListItemIcon sx={{ color: "white" }}>
                                         <CurrencyRupeeIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary={"50000"}></ListItemText>
+                                    <ListItemText primary={data[0]?.price}></ListItemText>
                                     <button>Book Venue</button>
                                 </ListItems>
                             </Lists>
                             <MapContainer>
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.5220316268196!2d75.8919265!3d11.1489312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba6502eed76c9ef%3A0xac780735033a2193!2s4VXR%2BGQR%20Kinfra%20Park%2C%20Kakkanchery%2C%20Chelambra%2C%20Kerala%20673636!5e0!3m2!1sen!2sin!4v1711550541927!5m2!1sen!2sin"
+                                    src={data[0]?.mapUrl}
                                     width="100%"
                                     height="100%"
                                     style={{ border: "0" }}

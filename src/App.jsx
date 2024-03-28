@@ -6,6 +6,7 @@ import OrganizerHomePage from "./pages/OrganizerHomePage/OrganizerHomePage";
 import AdminHomePage from "./pages/AdminHomePage/AdminHomePage";
 import UserHomePage from "./pages/UserHomePage/UserHomePage";
 import VenueDetails from "./pages/OrganizerHomePage/venueDetails";
+import UserEvents from "./pages/UserHomePage/UserEvents";
 
 
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/admin" element={< AdminHomePage/>} />
         <Route path="/organizer/venue/:id" element={<VenueDetails/>}></Route>
         <Route path="/user" element={< UserHomePage/>} />
+        <Route path="/user/events" element={< UserEvents/>} />
       </Routes>
     </div>
   );
