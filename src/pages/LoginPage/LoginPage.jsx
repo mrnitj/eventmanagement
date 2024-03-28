@@ -35,6 +35,7 @@ function LoginPage() {
         isOrganizer:isChecked
 
       });
+      console.log("Login successful:", response.data);
       toast.success("Login Successful", {
         duration: 5000,
         style: {
@@ -42,6 +43,18 @@ function LoginPage() {
           color: "#000",
         },
       });
+      if(response.data.type==='admin'){
+        //navigate to  admin page
+      }
+      if(response.data.type==='oraganizer'){
+        localStorage.setItem("organizerId",response.data.Id)
+        navigate("/organizer")
+      }
+      if(response.data.type==='user'){
+        localStorage.setItem("userId",response.data.Id)
+        navigate("/user")
+      }
+
       console.log("Login successful:", response.data);
     } catch (error) {
       toast.error("Access denied", {
