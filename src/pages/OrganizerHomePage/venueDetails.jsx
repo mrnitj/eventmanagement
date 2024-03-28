@@ -1,4 +1,4 @@
-import { Box, Grid, styled, List, ListItem, ListItemIcon, ListItemText, Typography, Button } from "@mui/material";
+import { Box, Grid, styled, List, ListItem, ListItemIcon, ListItemText, Typography, Button,Modal,TextField,FormControl  } from "@mui/material";
 import axios from "../../utils/AxiosInstance";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -85,7 +85,7 @@ const VenueDetails = () => {
     date: "",
     Ticketprice: null,
     maximumSeats: null,
-    image: "",
+    image: null,
   });
 
   const navigate = useNavigate();
@@ -106,13 +106,13 @@ const VenueDetails = () => {
     fetchData();
   }, []);
 
-  const images = data.length > 0 ? data[0].images : [];
+//   const images = data.length > 0 ? data[0].images : [];
 
 //   const imageView = (prop) => {
 //     setImage(images[prop]?.url);
 //   };
 
-  // modal feature implementation
+//   modal feature implementation
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -120,11 +120,12 @@ const VenueDetails = () => {
     console.log("main form data", formData);
   };
   const handleImageUpload = (event) => {
-    const files = event.target.file;
+    const files = event.target.files;
     setFormData({
       ...formData,
-      image: files,
+      image: files,  
     });
+    console.log("main form data", formData);
   };
 
   const handleSubmit = async (event) => {
@@ -134,13 +135,20 @@ const VenueDetails = () => {
       const formDataToSend = new FormData();
 
       for (const key in formData) {
-        formDataToSend.append(key, formData[key]);
+        if (key === "image") {
+              formDataToSend.append("image", formData.image[0]);
+          } else {
+            formDataToSend.append(key, formData[key]);
+          }
       }
+
+      
 
       if (!formData.title || !formData.category || !formData.Ticketprice) {
         alert("Please fill in all required fields!");
         return;
       }
+      console.log("thyr",formData)
       const response = await axios.post(
         `/api/postevent/${id}`,
         formDataToSend,
@@ -150,6 +158,8 @@ const VenueDetails = () => {
           },
         }
       );
+
+      handleClose();
       console.log("Registration successful:", response.data);
 
       console.log("Submitting form:", formData);
@@ -159,13 +169,24 @@ const VenueDetails = () => {
     }
   };
 
-    // const images = data.length > 0 ? data[0].images : [];
+   // Function to handle modal open
+   const handleOpen = () => {
+    setOpen(true);
+  };
+
+  // Function to handle modal close
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+    const images = data.length > 0 ? data[0].images : [];
     const imageView = (prop) => {
         setImage(images[prop]?.url);
     };
     const facilities = data[0]?.Facilities.join(",");
 
     return (
+        <>
         <MainContainer sx={{ padding: { xs: "5px", sm: "15px", lg: "30px" } }}>
             <Button sx={{ width: "fit-content", color: "white", outline: "none" }} onClick={() => navigate("/organizer")}>
                 <ArrowBackIosNewIcon />
@@ -223,7 +244,7 @@ const VenueDetails = () => {
                                         <CurrencyRupeeIcon />
                                     </ListItemIcon>
                                     <ListItemText primary={data[0]?.price}></ListItemText>
-                                    <button>Book Venue</button>
+                                    <button onClick={handleOpen}>Book Venue</button>
                                 </ListItems>
                             </Lists>
                             <MapContainer>
@@ -232,9 +253,9 @@ const VenueDetails = () => {
                                     width="100%"
                                     height="100%"
                                     style={{ border: "0" }}
-                                    allowfullscreen=""
+                                    
                                     loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"
+                                  
                                 ></iframe>
                             </MapContainer>
                         </DetailsContainer>
@@ -242,6 +263,91 @@ const VenueDetails = () => {
                 </Grids>
             </SubContainer>
         </MainContainer>
+        <Modal open={open} onClose={handleClose}>
+        <Box sx={sx.modalContainer}>
+        
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
+              <Box sx={sx.form}>
+                <h2 style={{ color: "#0c1022" }}>Create New Event</h2>
+                <TextField
+                  label="Title"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  required
+                  sx={sx.inputBox}
+                />
+                <FormControl fullWidth>
+                  <TextField
+                    label="Category"
+                    name="category"
+                    value={formData.category}
+                    onChange={handleChange}
+                    required
+                    sx={sx.inputBox}
+                  />
+                 
+                </FormControl>
+                <TextField
+                  label="Description"
+                  name="description"
+                  value={formData.description}
+                  onChange={handleChange}
+                  multiline
+                  rows={4}
+                  sx={sx.inputBox}
+                />
+                <TextField
+                  label="Date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChange}
+                  type="date"
+                  InputLabelProps={{ shrink: true }}
+                  sx={sx.inputBox}
+                />
+                <TextField
+                  label="Ticket Price"
+                  name="Ticketprice"
+                  value={formData.Ticketprice}
+                  onChange={handleChange}
+                  type="number"
+                  required
+                  sx={sx.inputBox}
+                />
+                <TextField
+                  label="Maximum Seats"
+                  name="maximumSeats"
+                  value={formData.maximumSeats}
+                  onChange={handleChange}
+                  type="number"
+                  sx={sx.inputBox}
+                />
+                <TextField
+                  required={true}
+                  sx={sx.inputBox}
+                  type="file"
+                  name="image"
+                  accept=".png, .jpg, .jpeg"
+                  onChange={handleImageUpload}
+                  showFileNamesInPreview={true}
+                  maxFileSize={10000000}
+                  onDrop={console.log}
+                  dropzoneText="Add an image here"
+                />
+                <Button
+                  sx={sx.submitButton}
+                  type="submit"
+                  variant="contained"
+                >
+                  Submit
+                </Button>
+              </Box>
+            </form>
+  
+        </Box>
+      </Modal>
+        </>
     );
 };
 
