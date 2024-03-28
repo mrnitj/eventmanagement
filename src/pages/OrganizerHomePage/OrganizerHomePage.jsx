@@ -1,13 +1,30 @@
-import { useState, React } from "react";
+import { useState, useEffect, React } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { CalendarPlus, CalendarCheck } from "phosphor-react";
-import CreateEvents from "../../components/organizerComponents/createEvents";
 import ShowAllEvents from "../../components/organizerComponents/showAllEvents";
 import VenueLists from "../../components/organizerComponents/venueLists";
+import axios from "../../utils/AxiosInstance";
 
 function OrganizerHomePage() {
     const [selectedComponent, setSelectedComponent] = useState("ShowAllEvents");
     const [selectedBox, setSelectedBox] = useState("ShowAllEvents");
+    const [data, setData] = useState([]);
+    
+    const fetchData = async () => {
+        try {
+            const response = await axios.get("/api/getallvenues");
+
+            setData(response.data.data);
+        } catch (err) {
+            console.error("venue fetching error:", err);
+            console.log("Response:", err.response);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+    console.log(data);
 
     const handleClick = (item) => {
         setSelectedComponent(item);
@@ -20,7 +37,7 @@ function OrganizerHomePage() {
     const renderComponent = () => {
         switch (selectedComponent) {
             case "venueLists":
-                return <VenueLists />;
+                return <VenueLists data={data} />;
             case "ShowAllEvents":
                 return <ShowAllEvents />;
             default:
@@ -180,7 +197,7 @@ const sx = {
         height: "100vh",
         width: "100%",
         overflow: "auto",
-        padding:'30px'
+        padding: "30px",
     },
 };
 

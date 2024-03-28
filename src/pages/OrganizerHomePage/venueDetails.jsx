@@ -1,17 +1,4 @@
-import {
-  Box,
-  Grid,
-  styled,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-  Button,
-  TextField,
-  FormControl,
-  Modal,
-} from "@mui/material";
+import { Box, Grid, styled, List, ListItem, ListItemIcon, ListItemText, Typography, Button } from "@mui/material";
 import axios from "../../utils/AxiosInstance";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -67,6 +54,7 @@ const ImageLists = styled(Box)`
   width: calc(100% / 6);
   height: 100%;
 `;
+
 // -----
 
 const DetailsContainer = styled(Box)`
@@ -120,9 +108,9 @@ const VenueDetails = () => {
 
   const images = data.length > 0 ? data[0].images : [];
 
-  const imageView = (prop) => {
-    setImage(images[prop]?.url);
-  };
+//   const imageView = (prop) => {
+//     setImage(images[prop]?.url);
+//   };
 
   // modal feature implementation
 
@@ -135,7 +123,7 @@ const VenueDetails = () => {
     const files = event.target.file;
     setFormData({
       ...formData,
-      images: files,
+      image: files,
     });
   };
 
@@ -171,186 +159,90 @@ const VenueDetails = () => {
     }
   };
 
-  // Function to handle modal open
-  const handleOpen = () => {
-    setOpen(true);
-  };
+    // const images = data.length > 0 ? data[0].images : [];
+    const imageView = (prop) => {
+        setImage(images[prop]?.url);
+    };
+    const facilities = data[0]?.Facilities.join(",");
 
-  // Function to handle modal close
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  return (
-    <>
-      <MainContainer sx={{ padding: { xs: "5px", sm: "15px", lg: "30px" } }}>
-        <Button
-          sx={{ width: "fit-content", color: "white", outline: "none" }}
-          onClick={() => navigate("/organizer")}
-        >
-          <ArrowBackIosNewIcon />
-        </Button>
-        <SubContainer sx={{ padding: { xs: "0", sm: "5", lg: "30px" } }}>
-          <Grids container spacing={2}>
-            <GridItems item xs={12} sm={7}>
-              <ImageContainer>
-                <MainImage>
-                  <img
-                    src={image.length == 0 ? images[0]?.url : image}
-                    alt=""
-                  />
-                </MainImage>
-                <SubImages>
-                  <ImageLists onClick={() => imageView(0)}>
-                    <img src={images[0]?.url} alt="" />
-                  </ImageLists>
-                  <ImageLists onClick={() => imageView(1)}>
-                    <img src={images[1]?.url} alt="" />
-                  </ImageLists>
-                  <ImageLists onClick={() => imageView(2)}>
-                    <img src={images[2]?.url} alt="" />
-                  </ImageLists>
-                  <ImageLists onClick={() => imageView(3)}>
-                    <img src={images[3]?.url} alt="" />
-                  </ImageLists>
-                  <ImageLists onClick={() => imageView(4)}>
-                    <img src={images[4]?.url} alt="" />
-                  </ImageLists>
-                </SubImages>
-              </ImageContainer>
-            </GridItems>
-            <GridItems item xs={12} sm={5}>
-              <DetailsContainer>
-                <Typography variant="h3">Crown Plaza</Typography>
-                <Lists>
-                  <ListItems>
-                    <ListItemIcon sx={{ color: "white" }}>
-                      <LocationOnIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={"Calicut"}></ListItemText>
-                  </ListItems>
-                  <ListItems>
-                    <ListItemIcon sx={{ color: "white" }}>
-                      <EventSeatIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={"200"}></ListItemText>
-                  </ListItems>
-                  <ListItems>
-                    <ListItemIcon sx={{ color: "white" }}>
-                      <DownloadDoneIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={"AC, Parking lot ..."}
-                    ></ListItemText>
-                  </ListItems>
-                  <ListItems>
-                    <ListItemIcon sx={{ color: "white" }}>
-                      <CurrencyRupeeIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={"50000"}></ListItemText>
-                    <button onClick={handleOpen}>Book Venue</button>
-                  </ListItems>
-                </Lists>
-                <MapContainer>
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.5220316268196!2d75.8919265!3d11.1489312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba6502eed76c9ef%3A0xac780735033a2193!2s4VXR%2BGQR%20Kinfra%20Park%2C%20Kakkanchery%2C%20Chelambra%2C%20Kerala%20673636!5e0!3m2!1sen!2sin!4v1711550541927!5m2!1sen!2sin"
-                    width="100%"
-                    height="100%"
-                    style={{ border: "0" }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  ></iframe>
-                </MapContainer>
-              </DetailsContainer>
-            </GridItems>
-          </Grids>
-        </SubContainer>
-      </MainContainer>
-      <Modal open={open} onClose={handleClose}>
-        <Box sx={sx.modalContainer}>
-          <form onSubmit={handleSubmit}>
-            <Box sx={sx.form}>
-              <h2 style={{ color: "#0c1022" }}>Create New Event</h2>
-              <TextField
-                label="Title"
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                required
-                sx={sx.inputBox}
-              />
-              <FormControl fullWidth>
-                <TextField
-                  label="Category"
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  required
-                  sx={sx.inputBox}
-                />
-              </FormControl>
-              <TextField
-                label="Description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                multiline
-                rows={4}
-                sx={sx.inputBox}
-              />
-              <TextField
-                label="Date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-                type="date"
-                InputLabelProps={{ shrink: true }}
-                sx={sx.inputBox}
-              />
-              <TextField
-                label="Ticket Price"
-                name="Ticketprice"
-                value={formData.Ticketprice}
-                onChange={handleChange}
-                type="number"
-                required
-                sx={sx.inputBox}
-              />
-              <TextField
-                label="Maximum Seats"
-                name="maximumSeats"
-                value={formData.maximumSeats}
-                onChange={handleChange}
-                type="number"
-                sx={sx.inputBox}
-              />
-              <TextField
-                required={true}
-                sx={sx.inputBox}
-                type="file"
-                name="image"
-                accept="image/jpeg, image/webp"
-                onChange={handleImageUpload}
-                showFileNamesInPreview={true}
-                maxFileSize={10000000}
-                onDrop={console.log}
-                dropzoneText="Add an image here"
-              />
-              <Button
-                sx={sx.submitButton}
-                type="submit"
-                variant="contained"
-                // onClick={handleClose}
-              >
-                Submit
-              </Button>
-            </Box>
-          </form>
-        </Box>
-      </Modal>
-    </>
-  );
+    return (
+        <MainContainer sx={{ padding: { xs: "5px", sm: "15px", lg: "30px" } }}>
+            <Button sx={{ width: "fit-content", color: "white", outline: "none" }} onClick={() => navigate("/organizer")}>
+                <ArrowBackIosNewIcon />
+            </Button>
+            <SubContainer sx={{ padding: { xs: "0", sm: "5", lg: "30px" } }}>
+                <Grids container spacing={2}>
+                    <GridItems item xs={12} sm={7}>
+                        <ImageContainer>
+                            <MainImage>
+                                <img src={image.length == 0 ? images[0]?.url : image} alt="" />
+                            </MainImage>
+                            <SubImages>
+                                <ImageLists onClick={() => imageView(0)}>
+                                    <img src={images[0]?.url} alt="" />
+                                </ImageLists>
+                                <ImageLists onClick={() => imageView(1)}>
+                                    <img src={images[1]?.url} alt="" />
+                                </ImageLists>
+                                <ImageLists onClick={() => imageView(2)}>
+                                    <img src={images[2]?.url} alt="" />
+                                </ImageLists>
+                                <ImageLists onClick={() => imageView(3)}>
+                                    <img src={images[3]?.url} alt="" />
+                                </ImageLists>
+                                <ImageLists onClick={() => imageView(4)}>
+                                    <img src={images[4]?.url} alt="" />
+                                </ImageLists>
+                            </SubImages>
+                        </ImageContainer>
+                    </GridItems>
+                    <GridItems item xs={12} sm={5}>
+                        <DetailsContainer>
+                            <Typography variant="h3">{data[0]?.title}</Typography>
+                            <Lists>
+                                <ListItems>
+                                    <ListItemIcon sx={{ color: "white" }}>
+                                        <LocationOnIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={data[0]?.place}></ListItemText>
+                                </ListItems>
+                                <ListItems>
+                                    <ListItemIcon sx={{ color: "white" }}>
+                                        <EventSeatIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={data[0]?.maximumSeats}></ListItemText>
+                                </ListItems>
+                                <ListItems>
+                                    <ListItemIcon sx={{ color: "white" }}>
+                                        <DownloadDoneIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={facilities}></ListItemText>
+                                </ListItems>
+                                <ListItems>
+                                    <ListItemIcon sx={{ color: "white" }}>
+                                        <CurrencyRupeeIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={data[0]?.price}></ListItemText>
+                                    <button>Book Venue</button>
+                                </ListItems>
+                            </Lists>
+                            <MapContainer>
+                                <iframe
+                                    src={data[0]?.mapUrl}
+                                    width="100%"
+                                    height="100%"
+                                    style={{ border: "0" }}
+                                    allowfullscreen=""
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                ></iframe>
+                            </MapContainer>
+                        </DetailsContainer>
+                    </GridItems>
+                </Grids>
+            </SubContainer>
+        </MainContainer>
+    );
 };
 
 export default VenueDetails;
