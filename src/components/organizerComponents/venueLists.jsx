@@ -1,7 +1,6 @@
 import { Box, Card, CardContent, Grid, ListItem, ListItemIcon, ListItemText, styled, List } from "@mui/material";
 import { useState, useEffect } from "react";
 import axios from "../../utils/AxiosInstance";
-
 import FoundationIcon from "@mui/icons-material/Foundation";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EventSeatIcon from "@mui/icons-material/EventSeat";

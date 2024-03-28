@@ -5,6 +5,7 @@ import Footer from "../../components/userComponents/Footer";
 import ChatBox from "../../components/userComponents/ChatBox";
 import Features from "../../components/userComponents/Features";
 import FAQ from "../../components/userComponents/FAQ";
+import { BookNow } from "../../components/userComponents/BookNow";
 
 const carouselItems = [
   {
@@ -43,6 +44,8 @@ function UserHomePage() {
       <Features/>
 
       <FAQ/>
+
+      <BookNow/>
 
       <ChatBox/>
 
