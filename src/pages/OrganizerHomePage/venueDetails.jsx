@@ -117,7 +117,7 @@ const VenueDetails = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
-    console.log("main form data", formData);
+   
   };
   const handleImageUpload = (event) => {
     const files = event.target.files;
@@ -125,13 +125,15 @@ const VenueDetails = () => {
       ...formData,
       image: files,  
     });
-    console.log("main form data", formData);
+    
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("first");
+    
     try {
+
+      const organizerId = localStorage.getItem("organizerId")
       const formDataToSend = new FormData();
 
       for (const key in formData) {
@@ -141,16 +143,17 @@ const VenueDetails = () => {
             formDataToSend.append(key, formData[key]);
           }
       }
-
+       
+      
       
 
       if (!formData.title || !formData.category || !formData.Ticketprice) {
         alert("Please fill in all required fields!");
         return;
       }
-      console.log("thyr",formData)
+
       const response = await axios.post(
-        `/api/postevent/${id}`,
+        `/api/postevent/${id}/${organizerId}`,
         formDataToSend,
         {
           headers: {
@@ -169,12 +172,12 @@ const VenueDetails = () => {
     }
   };
 
-   // Function to handle modal open
+
    const handleOpen = () => {
     setOpen(true);
   };
 
-  // Function to handle modal close
+ 
   const handleClose = () => {
     setOpen(false);
   };

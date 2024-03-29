@@ -6,8 +6,6 @@ import axios from "../../utils/AxiosInstance";
 
 import FoundationIcon from "@mui/icons-material/Foundation";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import EventSeatIcon from "@mui/icons-material/EventSeat";
-import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 
@@ -76,11 +74,11 @@ const UserEvents = () => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get("/api/getallvenues");
+            const response = await axios.get("/api/getallevents");
 
             setData(response.data.data);
         } catch (err) {
-            console.error("venue fetching error:", err);
+            console.error("event fetching error:", err);
             console.log("Response:", err.response);
         }
     };
@@ -96,11 +94,11 @@ const UserEvents = () => {
 
             <SubContainer>
                 <Grid container spacing={2} p={4}>
-                    {data.map((venue) => (
+                    {data.map((event) => (
                         <Grid item xs={12} sm={6} md={4} lg={3}>
-                            <Cards onClick={() => nav(`/organizer/venue/${venue._id}`)}>
+                            <Cards onClick={() => nav(`/organizer/event/${event._id}`)}>
                                 <ImageBox>
-                                    <img src={venue.images[0].url} alt="Venue Image" />
+                                    <img src={event.image.url} alt="event Image" />
                                 </ImageBox>
                                 <CardContents>
                                     <Lists>
@@ -109,13 +107,13 @@ const UserEvents = () => {
                                                 <ListItemIcon className="listIcon">
                                                     <FoundationIcon />
                                                 </ListItemIcon>
-                                                <ListItemText secondary={venue.title} />
+                                                <ListItemText secondary={event.title} />
                                             </ListItems>
                                             <ListItems>
                                                 <ListItemIcon className="listIcon">
                                                     <LocationOnIcon />
                                                 </ListItemIcon>
-                                                <ListItemText secondary={venue.place} />
+                                                <ListItemText secondary={event.place} />
                                             </ListItems>
                                         </Box>
                                         <Box sx={{ display: "flex" }}>
@@ -123,13 +121,13 @@ const UserEvents = () => {
                                                 <ListItemIcon className="listIcon">
                                                     <DateRangeIcon />
                                                 </ListItemIcon>
-                                                <ListItemText secondary={venue.maximumSeats} />
+                                                <ListItemText secondary={event.maximumSeats} />
                                             </ListItems>
                                             <ListItems>
                                                 <ListItemIcon className="listIcon">
                                                     <CurrencyRupeeIcon />
                                                 </ListItemIcon>
-                                                <ListItemText id="more" secondary={venue.price} />
+                                                <ListItemText id="more" secondary={event.price} />
                                             </ListItems>
                                         </Box>
                                     </Lists>
