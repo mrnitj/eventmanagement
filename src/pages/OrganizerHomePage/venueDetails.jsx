@@ -266,6 +266,7 @@ const VenueDetails = () => {
                 </Grids>
             </SubContainer>
         </MainContainer>
+        
         <Modal open={open} onClose={handleClose}>
         <Box sx={sx.modalContainer}>
         

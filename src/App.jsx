@@ -7,6 +7,7 @@ import AdminHomePage from "./pages/AdminHomePage/AdminHomePage";
 import UserHomePage from "./pages/UserHomePage/UserHomePage";
 import VenueDetails from "./pages/OrganizerHomePage/venueDetails";
 import UserEvents from "./pages/UserHomePage/UserEvents";
+import BookEvent from "./pages/UserHomePage/BookEvent";
 
 
 
@@ -25,6 +26,7 @@ function App() {
         <Route path="/organizer/venue/:id" element={<VenueDetails/>}></Route>
         <Route path="/user" element={< UserHomePage/>} />
         <Route path="/user/events" element={< UserEvents/>} />
+        <Route path="/user/events/booking/:id" element={< BookEvent/>} />
       </Routes>
     </div>
   );
