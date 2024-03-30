@@ -8,6 +8,7 @@ import UserHomePage from "./pages/UserHomePage/UserHomePage";
 import VenueDetails from "./pages/OrganizerHomePage/venueDetails";
 import UserEvents from "./pages/UserHomePage/UserEvents";
 import BookEvent from "./pages/UserHomePage/BookEvent";
+import { UserBooking } from "./pages/UserHomePage/UserBooking";
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/user" element={< UserHomePage/>} />
         <Route path="/user/events" element={< UserEvents/>} />
         <Route path="/user/events/booking/:id" element={< BookEvent/>} />
+        <Route path="/user/bookings" element={< UserBooking/>} />
       </Routes>
     </div>
   );
