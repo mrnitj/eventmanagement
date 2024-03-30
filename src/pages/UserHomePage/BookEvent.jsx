@@ -17,15 +17,14 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
-import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import FoundationIcon from "@mui/icons-material/Foundation";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 
-import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
@@ -54,9 +53,10 @@ const MainImage = styled(Box)`
     padding: 0;
 
     img {
-        height: 100%;
+        height: auto;
+        position: center;
         width: 100%;
-        object-fit: fill;
+        object-fit: cover;
     }
     #swipe {
         width: 100%;
@@ -66,6 +66,7 @@ const MainImage = styled(Box)`
 `;
 
 const SubImages = styled(Box)`
+    background-color: #00000057;
     height: 129px;
     width: 100%;
     display: flex;
@@ -93,7 +94,39 @@ const DetailsContainer = styled(Box)`
 `;
 
 const Lists = styled(List)``;
-const ListItems = styled(ListItem)``;
+const ListItems = styled(ListItem)`
+    .span {
+        display: flex;
+        padding: 10px;
+        align-items: center;
+
+        #textField {
+            padding: 0;
+            max-width: 80px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        input {
+            width: 80%;
+            outline: none;
+            height: 100%;
+            border: none;
+            background: transparent;
+            text-align: center;
+            color: white;
+        }
+
+        /* background-color: red; */
+    }
+
+    .span.one {
+        display: flex;
+        min-width: 200px;
+        /* background-color: red;    */
+    }
+`;
 const MapContainer = styled(Box)`
     height: 195px;
     width: 100%;
@@ -131,7 +164,7 @@ const BookEvent = () => {
             </Button>
             <SubContainer sx={{ padding: { xs: "0", sm: "5", lg: "30px" } }}>
                 <Grids container spacing={2}>
-                    <GridItems item xs={12} sm={7}>
+                    <GridItems item xs={12} md={7}>
                         <ImageContainer>
                             <MainImage>
                                 <Swiper spaceBetween={30} slidesPerView={1} style={{ height: "100%", width: "100%" }}>
@@ -162,33 +195,102 @@ const BookEvent = () => {
                             </SubImages>
                         </ImageContainer>
                     </GridItems>
-                    <GridItems item xs={12} sm={5}>
-                        <DetailsContainer>
+
+                    <GridItems item xs={12} md={5}>
+                        <DetailsContainer sx={{ height: { xs: "fitContent", md: "500px" } }}>
                             <Typography variant="h3">{data[0]?.title}</Typography>
                             <Lists>
-                                <ListItems>
-                                    <ListItemIcon sx={{ color: "white" }}>
-                                        <FoundationIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={data[0]?.venue.title}></ListItemText>
+                                <ListItems
+                                    sx={{
+                                        flexDirection: { xs: "column", md: "row" },
+                                        textAlign: { xs: "left" },
+                                        alignItems: { xs: "flex-start" },
+                                        padding: { xs: "0" },
+                                    }}
+                                >
+                                    <span className="span one">
+                                        <ListItemIcon
+                                            sx={{ color: "white", minWidth: { xs: "52px", sm: " 35px", lg: "52px" } }}
+                                        >
+                                            <FoundationIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={data[0]?.venue.title}></ListItemText>
+                                    </span>
+                                    <span className="span">
+                                        <ListItemIcon
+                                            sx={{ color: "white", minWidth: { xs: "52px", sm: " 35px", lg: "52px" } }}
+                                        >
+                                            <LocationOnIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={data[0]?.venue.place}></ListItemText>
+                                    </span>
                                 </ListItems>
-                                <ListItems>
-                                    <ListItemIcon sx={{ color: "white" }}>
-                                        <LocationOnIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={data[0]?.venue.place}></ListItemText>
+
+                                <ListItems
+                                    sx={{
+                                        flexDirection: { xs: "column", md: "row" },
+                                        textAlign: { xs: "left" },
+                                        alignItems: { xs: "flex-start" },
+                                        padding: { xs: "0" },
+                                    }}
+                                >
+                                    <span className="span one">
+                                        <ListItemIcon
+                                            sx={{ color: "white", minWidth: { xs: "52px", sm: " 35px", lg: "52px" } }}
+                                        >
+                                            <EventSeatIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={data[0]?.venue.maximumSeats}></ListItemText>
+                                    </span>
+                                    <span className="span">
+                                        <ListItemIcon
+                                            sx={{ color: "white", minWidth: { xs: "52px", sm: " 35px", lg: "52px" } }}
+                                        >
+                                            <DateRangeIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={data[0]?.date}></ListItemText>
+                                    </span>
                                 </ListItems>
-                                <ListItems>
-                                    <ListItemIcon sx={{ color: "white" }}>
-                                        <DateRangeIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={data[0]?.date}></ListItemText>
+
+                                <ListItems
+                                    sx={{
+                                        flexDirection: { xs: "column", md: "row" },
+                                        textAlign: { xs: "left" },
+                                        alignItems: { xs: "flex-start" },
+                                        padding: { xs: "0" },
+                                    }}
+                                >
+                                    <span className="span one">
+                                        <ListItemIcon
+                                            sx={{ color: "white", minWidth: { xs: "52px", sm: " 35px", lg: "52px" } }}
+                                        >
+                                            <PeopleAltIcon />
+                                        </ListItemIcon>
+                                        <span id="textField">
+                                            <span>-</span>
+                                            <input></input>
+                                            <span>+</span>
+                                        </span>
+                                    </span>
+                                    <span className="span">
+                                        <ListItemIcon
+                                            sx={{ color: "white", minWidth: { xs: "52px", sm: " 35px", lg: "52px" } }}
+                                        >
+                                            <CurrencyRupeeIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary={data[0]?.Ticketprice}></ListItemText>
+                                    </span>
                                 </ListItems>
-                                <ListItems>
-                                    <ListItemIcon sx={{ color: "white" }}>
-                                        <CurrencyRupeeIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={data[0]?.freeEvent ? "0" : data[0]?.Ticketprice}></ListItemText>
+
+                                <ListItems
+                                    sx={{
+                                        flexDirection: { xs: "column", md: "row" },
+                                        textAlign: { xs: "left" },
+                                        alignItems: { xs: "flex-start" },
+                                        padding: { xs: "0" },
+                                        justifyContent: { md: "flex-end" },
+                                    }}
+                                >
                                     <button>Book Now</button>
                                 </ListItems>
                             </Lists>
