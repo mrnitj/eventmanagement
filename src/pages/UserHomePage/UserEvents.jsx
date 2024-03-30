@@ -87,6 +87,8 @@ const UserEvents = () => {
         fetchData();
     }, []);
 
+    console.log(data)
+
     return (
         <MainContainer>
             <Navbar />
