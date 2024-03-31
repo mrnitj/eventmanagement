@@ -87,7 +87,7 @@ const UserEvents = () => {
         fetchData();
     }, []);
 
-    console.log(data)
+    console.log(data);
 
     return (
         <MainContainer>

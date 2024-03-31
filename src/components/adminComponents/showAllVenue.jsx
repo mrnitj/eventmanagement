@@ -5,7 +5,7 @@ import FoundationIcon from "@mui/icons-material/Foundation";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EventSeatIcon from "@mui/icons-material/EventSeat";
 import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
-import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 
 const MainContainer = styled(Box)``;
 const Cards = styled(Card)`
@@ -41,16 +41,15 @@ const ListItems = styled(ListItem)`
     .listIcon {
         min-width: 30px;
     }
-    #facilities{
+    #facilities {
         display: -webkit-box !important;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         white-space: pre-line;
         overflow: hidden;
         text-overflow: ellipsis;
-        max-width:250px, dis;
+        max-width: 250px, dis;
     }
-
 `;
 
 const ShowAllVenue = () => {
@@ -71,63 +70,56 @@ const ShowAllVenue = () => {
         fetchData();
     }, []);
 
-
     return (
         <MainContainer>
             <Grid container spacing={2}>
-
-                {
-                    data.map((venue) => (
-
-
-                <Grid item xs={12} sm={6} lg={3}>
-                    <Cards>
-                        <ImageBox>
-                            <img src={venue.images[0].url} alt="Venue Image" />
-                        </ImageBox>
-                        <CardContents>
-                            <Lists>
-                                <ListItems>
-                                    <ListItemIcon className="listIcon">
-                                        <FoundationIcon />
-                                    </ListItemIcon>
-                                    <ListItemText secondary={venue.title} />
-                                </ListItems>
-                                <Box sx={{display:'flex'}}>
-                                    <ListItems id="listPlace">
-                                        <ListItemIcon className="listIcon">
-                                            <LocationOnIcon />
-                                        </ListItemIcon>
-                                        <ListItemText secondary={venue.place} />
-                                    </ListItems>
+                {data.map((venue) => (
+                    <Grid item xs={12} sm={6} lg={3}>
+                        <Cards>
+                            <ImageBox>
+                                <img src={venue.images[0].url} alt="Venue Image" />
+                            </ImageBox>
+                            <CardContents>
+                                <Lists>
                                     <ListItems>
                                         <ListItemIcon className="listIcon">
-                                            <CurrencyRupeeIcon />
+                                            <FoundationIcon />
                                         </ListItemIcon>
-                                        <ListItemText secondary={venue.price} />
+                                        <ListItemText secondary={venue.title} />
                                     </ListItems>
-                                </Box>
-                                <Box sx={{ display: "flex" }}>
-                                    <ListItems id="listSeats">
-                                        <ListItemIcon className="listIcon">
-                                            <EventSeatIcon />
-                                        </ListItemIcon>
-                                        <ListItemText secondary={venue.maximumSeats} />
-                                    </ListItems>
-                                    <ListItems>
-                                        <ListItemIcon className="listIcon" id="listChair">
-                                            <DownloadDoneIcon />
-                                        </ListItemIcon>
-                                        <ListItemText id='facilities' secondary={"Ac, Parking lot"} />
-                                    </ListItems>
-                                </Box>
-                            </Lists>
-                        </CardContents>
-                    </Cards>
-                </Grid>
-                    ))
-                }
-            
+                                    <Box sx={{ display: "flex" }}>
+                                        <ListItems id="listPlace">
+                                            <ListItemIcon className="listIcon">
+                                                <LocationOnIcon />
+                                            </ListItemIcon>
+                                            <ListItemText secondary={venue.place} />
+                                        </ListItems>
+                                        <ListItems>
+                                            <ListItemIcon className="listIcon">
+                                                <CurrencyRupeeIcon />
+                                            </ListItemIcon>
+                                            <ListItemText secondary={venue.price} />
+                                        </ListItems>
+                                    </Box>
+                                    <Box sx={{ display: "flex" }}>
+                                        <ListItems id="listSeats">
+                                            <ListItemIcon className="listIcon">
+                                                <EventSeatIcon />
+                                            </ListItemIcon>
+                                            <ListItemText secondary={venue.maximumSeats} />
+                                        </ListItems>
+                                        <ListItems>
+                                            <ListItemIcon className="listIcon" id="listChair">
+                                                <DownloadDoneIcon />
+                                            </ListItemIcon>
+                                            <ListItemText id="facilities" secondary={"Ac, Parking lot"} />
+                                        </ListItems>
+                                    </Box>
+                                </Lists>
+                            </CardContents>
+                        </Cards>
+                    </Grid>
+                ))}
             </Grid>
         </MainContainer>
     );
