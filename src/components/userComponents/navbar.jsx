@@ -92,14 +92,14 @@ export default function Navbar() {
                 Events
               </Box>
               <Box sx={sx.navLinks}>About</Box>
-              <Box sx={sx.navLinks}>My&nbsp;Booking</Box>
+              <Box sx={sx.navLinks} onClick={() => nav("/user/bookings")}>My&nbsp;Booking</Box>
               <Box sx={sx.navLinks}>Contact</Box>
             </Box>
             <Box
               sx={{ display: "flex", alignItems: "center", color: "#23a6f0" }}
             >
               <PersonOutlineIcon />
-              <Box sx={sx.navLinks}>Login&nbsp;/&nbsp;Register&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Box>
+              <Box >Login&nbsp;/&nbsp;Register</Box>
             </Box>
           </>
         )}
