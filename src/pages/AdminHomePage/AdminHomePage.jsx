@@ -1,105 +1,50 @@
-import { useState, React } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import { CalendarPlus, CalendarCheck } from "phosphor-react";
+import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
+import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
+import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import { useState, useEffect } from "react";
+import axios from "../../utils/AxiosInstance";
+import ShowAllEvents from "../../components/organizerComponents/showAllEvents";
+import VenueLists from "../../components/organizerComponents/venueLists";
+import { Box } from "@mui/material";
+
 import CreateVenue from "../../components/adminComponents/createVenue";
 import ShowAllVenue from "../../components/adminComponents/showAllVenue";
 
 const AdminHomePage = () => {
-    const [selectedComponent, setSelectedComponent] = useState("ShowAllVenue");
-    const [selectedBox, setSelectedBox] = useState("ShowAllVenue");
-
-    const handleClick = (item) => {
-        setSelectedComponent(item);
-    };
-
-    const isBoxSelected = (box) => {
-        return selectedComponent === box;
-    };
-
-    const renderComponent = () => {
-        switch (selectedComponent) {
-            case "createVenue":
-                return <CreateVenue />;
-            case "ShowAllVenue":
-                return <ShowAllVenue />;
-            default:
-                return <ShowAllVenue />;
-        }
-    };
+    const { collapseSidebar } = useProSidebar();
+    const [children, setChildren] = useState(<ShowAllVenue />);
 
     return (
         <>
-            <Box sx={sx.mainContainer}>
-                <Box sx={sx.sidebar}>
-                    <Typography sx={sx.logoStyle}>E V E N T G O</Typography>
-                    <Box sx={sx.services}>
-                        <Box sx={{ display: "flex" }}>
-                            <Box
-                                sx={{
-                                    ...sx.serviceItems,
-                                    boxShadow: isBoxSelected("createVenue")
-                                        ? "4px 4px 16px 4px rgba(1, 1, 1, 0.25)"
-                                        : "none",
-                                }}
-                                onClick={() => {
-                                    setSelectedBox("createVenue");
-                                    handleClick("createVenue");
-                                }}
-                            >
-                                <CalendarPlus size={20} />
-                                <Typography
-                                    sx={{
-                                        fontSize: { xs: 10, sm: 14, md: 14, lg: 16 },
-                                        ...sx.inputTitle,
-                                    }}
-                                >
-                                    Create New Venue
-                                </Typography>
-                            </Box>
+            <div style={({ height: "100vh" }, { display: "flex" })}>
+                <Sidebar style={{ height: "100vh", background: "#0c1022 !important" }}>
+                    <Menu>
+                        <MenuItem
+                            icon={<MenuOutlinedIcon />}
+                            onClick={() => {
+                                collapseSidebar();
+                            }}
+                            style={{ textAlign: "center" }}
+                        >
+                            {" "}
+                            <h2>Admin</h2>
+                        </MenuItem>
 
-                            {selectedBox === "createVenue" && (
-                                <Box sx={sx.selectedBox}>
-                                    <Box sx={sx.innerSelectedBox}></Box>
-                                </Box>
-                            )}
-                        </Box>
-
-                        <Box sx={{ display: "flex" }}>
-                            <Box
-                                sx={{
-                                    ...sx.serviceItems,
-                                    boxShadow: isBoxSelected("ShowAllVenue")
-                                        ? "4px 4px 16px 4px rgba(1, 1, 1, 0.25)"
-                                        : "none",
-                                }}
-                                onClick={() => {
-                                    setSelectedBox("ShowAllVenue");
-                                    handleClick("ShowAllVenue");
-                                }}
-                            >
-                                <CalendarCheck size={20} />
-                                <Typography
-                                    sx={{
-                                        fontSize: { xs: 10, sm: 14, md: 14, lg: 16 },
-                                        ...sx.inputTitle,
-                                    }}
-                                >
-                                    Venues
-                                </Typography>
-                            </Box>
-
-                            {selectedBox === "showAllEvents" && (
-                                <Box sx={sx.selectedBox}>
-                                    <Box sx={sx.innerSelectedBox}></Box>
-                                </Box>
-                            )}
-                        </Box>
-                    </Box>
-
-                    <Button sx={sx.backButton}>Back to Home</Button>
-                </Box>
-                <Box sx={sx.renderComponent}>{renderComponent()}</Box>
-            </Box>
+                        <MenuItem icon={<HomeOutlinedIcon />} onClick={() => setChildren(<CreateVenue />)}>
+                            Create New Event
+                        </MenuItem>
+                        <MenuItem onClick={() => setChildren(<ShowAllVenue />)} icon={<PeopleOutlinedIcon />}>
+                            Events
+                        </MenuItem>
+                    </Menu>
+                </Sidebar>
+                <Box sx={sx.renderComponent}>{children}</Box>
+            </div>
         </>
     );
 };
@@ -179,7 +124,7 @@ const sx = {
         height: "100vh",
         width: "100%",
         overflow: "auto",
-        padding:'30px'
+        padding: "30px",
     },
 };
 
