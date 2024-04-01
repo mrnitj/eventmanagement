@@ -65,6 +65,7 @@ export default function Navbar() {
                             flexDirection: "column",
                             alignItems: "center",
                             padding: "10px",
+                            // width:'100%';
                         }}
                     >
                         <Button href="#" color="inherit" sx={sx.popoverButton}>

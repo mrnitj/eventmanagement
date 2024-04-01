@@ -10,7 +10,18 @@ import { useState, useEffect } from "react";
 import axios from "../../utils/AxiosInstance";
 import ShowAllEvents from "../../components/organizerComponents/showAllEvents";
 import VenueLists from "../../components/organizerComponents/venueLists";
-import { Box } from "@mui/material";
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Box, styled } from "@mui/material";
+
+const SideBars = styled(Sidebar)`
+    .ps-sidebar-container {
+        background: transparent;
+    }
+`;
+
+
+
+
 
 function OrganizerHomePage() {
     const [data, setData] = useState([]);
@@ -37,7 +48,7 @@ function OrganizerHomePage() {
     return (
         <>
             <div style={({ height: "100vh" }, { display: "flex" })}>
-                <Sidebar style={{ height: "100vh", background: "darkblue" }}>
+                <SideBars style={{ height: "100vh"}}>
                     <Menu>
                         <MenuItem
                             icon={<MenuOutlinedIcon />}
@@ -50,14 +61,14 @@ function OrganizerHomePage() {
                             <h2>Organizer</h2>
                         </MenuItem>
 
-                        <MenuItem icon={<HomeOutlinedIcon />} onClick={() => setChildren(<VenueLists data={data} />)}>
+                        <MenuItem icon={<AddCircleOutlineIcon />} onClick={() => setChildren(<VenueLists data={data} />)}>
                             Create New Event
                         </MenuItem>
                         <MenuItem onClick={() => setChildren(<ShowAllEvents />)} icon={<PeopleOutlinedIcon />}>
                             Events
                         </MenuItem>
                     </Menu>
-                </Sidebar>
+                </SideBars>
                 <Box sx={sx.renderComponent}>{children}</Box>
             </div>
         </>

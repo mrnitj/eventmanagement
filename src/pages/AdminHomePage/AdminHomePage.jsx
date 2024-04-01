@@ -10,10 +10,17 @@ import { useState, useEffect } from "react";
 import axios from "../../utils/AxiosInstance";
 import ShowAllEvents from "../../components/organizerComponents/showAllEvents";
 import VenueLists from "../../components/organizerComponents/venueLists";
-import { Box } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { Box, styled } from "@mui/material";
 
 import CreateVenue from "../../components/adminComponents/createVenue";
 import ShowAllVenue from "../../components/adminComponents/showAllVenue";
+
+const SideBars = styled(Sidebar)`
+    .ps-sidebar-container {
+        background: transparent;
+    }
+`;
 
 const AdminHomePage = () => {
     const { collapseSidebar } = useProSidebar();
@@ -21,8 +28,8 @@ const AdminHomePage = () => {
 
     return (
         <>
-            <div style={({ height: "100vh" }, { display: "flex" })}>
-                <Sidebar style={{ height: "100vh", background: "#0c1022 !important" }}>
+            <div style={{ height: "100vh", display: "flex" }}>
+                <SideBars style={{ height: "100vh" }}>
                     <Menu>
                         <MenuItem
                             icon={<MenuOutlinedIcon />}
@@ -35,14 +42,14 @@ const AdminHomePage = () => {
                             <h2>Admin</h2>
                         </MenuItem>
 
-                        <MenuItem icon={<HomeOutlinedIcon />} onClick={() => setChildren(<CreateVenue />)}>
-                            Create New Event
+                        <MenuItem icon={<AddCircleOutlineIcon />} onClick={() => setChildren(<CreateVenue />)}>
+                            Create New Venue
                         </MenuItem>
                         <MenuItem onClick={() => setChildren(<ShowAllVenue />)} icon={<PeopleOutlinedIcon />}>
-                            Events
+                            Venues
                         </MenuItem>
                     </Menu>
-                </Sidebar>
+                </SideBars>
                 <Box sx={sx.renderComponent}>{children}</Box>
             </div>
         </>
@@ -50,76 +57,6 @@ const AdminHomePage = () => {
 };
 
 const sx = {
-    mainContainer: {
-        width: "100%",
-        minHeight: "100vh",
-        display: "flex",
-        overflow: "hidden",
-    },
-    sidebar: {
-        width: "20%",
-        height: "auto",
-        background: "linear-gradient(7deg, #181921 0%, #242535 47%, #292A3D 100%)",
-        boxShadow: "14px 4px 55px 12px rgba(0, 0, 0, 0.25)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        paddingY: "3%",
-        position: "relative",
-    },
-
-    logoStyle: {
-        fontSize: { xs: "16px", sm: "18px", md: "20px", lg: "24px" },
-        marginBottom: "30%",
-    },
-    services: {
-        width: "90%",
-    },
-    serviceItems: {
-        display: "flex",
-        width: "100%",
-        gap: "6vh",
-        marginBottom: "5%",
-        padding: "5%",
-        position: "relative",
-
-        "&:hover": {
-            boxShadow: "4px 4px 16px 4px rgba(1, 1, 1, 0.25)",
-            cursor: "pointer",
-            background: " #47476b",
-        },
-    },
-    backButton: {
-        background: "#1F202D",
-        boxShadow: "0px 4px 16px rgba(0, 0, 0, 0.25)",
-        borderRadius: 20,
-        fontSize: { xs: 10, sm: 14, md: 14, lg: 14 },
-        textTransform: "none",
-        color: "#fff",
-        paddingX: "5%",
-        width: "150px",
-        position: "absolute",
-        bottom: "50px",
-        left: "40px",
-    },
-
-    cardBox: {
-        width: "100%",
-        height: "90%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    selectedBox: {
-        width: "1px",
-        height: "45px",
-        display: "flex",
-        alignItems: "center",
-    },
-    innerSelectedBox: { width: "inherit", height: "50%", background: "#fff" },
-    inputTitle: {
-        textTransform: "none",
-    },
     renderComponent: {
         height: "100vh",
         width: "100%",
