@@ -77,7 +77,7 @@ const CreateVenue = () => {
 
   return (
     <Box sx={sx.mainContainer}>
-      <form onSubmit={handleSubmit}>
+      <form style={{width:'100%'}} onSubmit={handleSubmit}>
         <Box sx={sx.form}>
           <h2 style={{ color: "#0c1022" }}>Create New Venue</h2>
           <TextField
@@ -150,12 +150,12 @@ const CreateVenue = () => {
 
 const sx = {
   mainContainer: {
-    minWidth: "80%",
+    maxWidth: {xs:'100%', sm:'70%',md:'50%'},
     display: "flex",
     justifyContent: "space-between",
     overflow: "hidden",
-    background: "#0c1022",
-    padding: "10px",
+    margin:'0 auto',
+    padding: {xs:'0', sm:'10px'},
   },
   inputBox: {
     backgroundColor: "white",
@@ -176,10 +176,9 @@ const sx = {
     display: "flex",
     flexDirection: "column",
     padding: "5%",
-    minWidth: "150%",
     background: "#BFBFBF",
     borderRadius: "10px",
-    marginLeft: "70%",
+    width:'100% !important'
   },
 };
 
