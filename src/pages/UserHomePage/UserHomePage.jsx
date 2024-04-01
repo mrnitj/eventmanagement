@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "../../components/userComponents/navbar";
 import CorouselItem from "../../components/userComponents/Corousel";
 import Footer from "../../components/userComponents/Footer";
-import ChatBox from "../../components/userComponents/ChatBox";
 import Features from "../../components/userComponents/Features";
 import FAQ from "../../components/userComponents/FAQ";
 import { BookNow } from "../../components/userComponents/BookNow";
@@ -40,8 +39,6 @@ function UserHomePage() {
             <FAQ />
 
             <BookNow />
-
-            <ChatBox />
 
             <Footer />
         </>

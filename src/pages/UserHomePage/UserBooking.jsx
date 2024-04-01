@@ -80,9 +80,31 @@ export const UserBooking = () => {
             console.log("Response:", err.response);
         }
     };
+
     useEffect(() => {
         fetchData();
     }, []);
+
+
+    const handleClick = async() => {
+      try {
+
+        const amount = bookingData.totalAmount
+        const  razorpay_payment_id = bookingData[0].razorpay_payment_id
+
+        console.log(razorpay_payment_id)
+
+        const response = await axios.post('/api/refund', {
+            amount: amount,
+            paymentId: razorpay_payment_id
+        });
+        console.log('Refund response:', response.data);
+
+    } catch (err) {
+      console.error("refund fetching error:", err);
+      console.log("Response:", err.response);
+    }
+    }
 
     return (
         <MainContainer>
@@ -130,12 +152,15 @@ export const UserBooking = () => {
                                                 <ListItemText id="more" secondary={event.totalTickets} />
                                             </ListItems>
                                         </Box>
+                                        <Box sx={{ display: "flex" }}>
                                         <ListItems>
                                             <ListItemIcon className="listIcon">
                                                 <CurrencyRupeeIcon />
                                             </ListItemIcon>
                                             <ListItemText id="more" secondary={event.totalAmount} />
                                         </ListItems>
+                                        <button onClick={handleClick}>Cancel</button>
+                                        </Box>
                                     </Lists>
                                 </CardContents>
                             </Cards>

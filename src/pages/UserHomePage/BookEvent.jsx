@@ -25,6 +25,8 @@ import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 
+import ChatBox from "../../components/userComponents/ChatBox";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
@@ -413,6 +415,7 @@ const BookEvent = () => {
           </GridItems>
         </Grids>
       </SubContainer>
+      {/* <ChatBox/> */}
     </MainContainer>
   );
 };
