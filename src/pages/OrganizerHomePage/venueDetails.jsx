@@ -12,7 +12,7 @@ import {
     TextField,
     FormControl,
     Snackbar,
-    IconButton
+    IconButton,
 } from "@mui/material";
 import axios from "../../utils/AxiosInstance";
 import React, { useEffect, useState } from "react";
@@ -23,7 +23,6 @@ import DownloadDoneIcon from "@mui/icons-material/DownloadDone";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import CloseIcon from "@mui/icons-material/Close";
-
 
 const MainContainer = styled(Box)``;
 const SubContainer = styled(Box)``;
@@ -215,7 +214,7 @@ const VenueDetails = () => {
 
         await setOpen(false);
 
-        await handleClick()
+        await handleClick();
     };
 
     const handleOpen = () => {
