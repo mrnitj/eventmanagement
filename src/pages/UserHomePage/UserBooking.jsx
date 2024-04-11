@@ -85,26 +85,23 @@ export const UserBooking = () => {
         fetchData();
     }, []);
 
+    const handleClick = async () => {
+        try {
+            const amount = bookingData.totalAmount;
+            const razorpay_payment_id = bookingData[0].razorpay_payment_id;
 
-    const handleClick = async() => {
-      try {
+            console.log(razorpay_payment_id);
 
-        const amount = bookingData.totalAmount
-        const  razorpay_payment_id = bookingData[0].razorpay_payment_id
-
-        console.log(razorpay_payment_id)
-
-        const response = await axios.post('/api/refund', {
-            amount: amount,
-            paymentId: razorpay_payment_id
-        });
-        console.log('Refund response:', response.data);
-
-    } catch (err) {
-      console.error("refund fetching error:", err);
-      console.log("Response:", err.response);
-    }
-    }
+            const response = await axios.post("/api/refund", {
+                amount: amount,
+                paymentId: razorpay_payment_id,
+            });
+            console.log("Refund response:", response.data);
+        } catch (err) {
+            console.error("refund fetching error:", err);
+            console.log("Response:", err.response);
+        }
+    };
 
     return (
         <MainContainer>
@@ -115,12 +112,7 @@ export const UserBooking = () => {
                         <Grid item xs={12} sm={6} md={4} lg={3}>
                             <Cards>
                                 <ImageBox>
-                                    <QRCode
-                                        size={200}
-                                        value={event._id}
-                                        level="H"
-                                        includeMargin={true}
-                                    />
+                                    <QRCode size={200} value={event._id} level="H" includeMargin={true} />
                                 </ImageBox>
                                 <CardContents>
                                     <Lists>
@@ -153,13 +145,13 @@ export const UserBooking = () => {
                                             </ListItems>
                                         </Box>
                                         <Box sx={{ display: "flex" }}>
-                                        <ListItems>
-                                            <ListItemIcon className="listIcon">
-                                                <CurrencyRupeeIcon />
-                                            </ListItemIcon>
-                                            <ListItemText id="more" secondary={event.totalAmount} />
-                                        </ListItems>
-                                        <button onClick={handleClick}>Cancel</button>
+                                            <ListItems>
+                                                <ListItemIcon className="listIcon">
+                                                    <CurrencyRupeeIcon />
+                                                </ListItemIcon>
+                                                <ListItemText id="more" secondary={event.totalAmount} />
+                                            </ListItems>
+                                            <button onClick={handleClick}>Cancel</button>
                                         </Box>
                                     </Lists>
                                 </CardContents>
